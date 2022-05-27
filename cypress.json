@@ -1,0 +1,5 @@
+{
+    "watchForFileChanges": true,
+    "failOnStatusCode": false,
+    "baseUrl": "http://localhost:3000"
+}

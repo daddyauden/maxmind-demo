@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+  webapp:
+    container_name: ${CONTAINER_NAME}
+    hostname: ${CONTAINER_NAME}
+    image: ${IMAGE_NAME}
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: Dockerfile.${NODE_ENV}
+    ports:
+      - "${CONTAINER_PORT}:3000"
+    volumes:
+      - .:/app

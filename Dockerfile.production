@@ -1,0 +1,27 @@
+# build step
+FROM node:14-alpine AS builder
+
+WORKDIR /app
+
+COPY . .
+
+RUN npm install
+
+RUN npm run build
+
+
+# prod step
+FROM node:14-alpine
+
+WORKDIR /app
+
+COPY public ./public
+COPY src ./src
+COPY .env.production ./.env
+COPY package.json ./package.json
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/node_modules ./node_modules
+
+ENV PATH=/app/node_modules/.bin:${PATH}
+
+CMD [ "npm", "run", "start" ]
